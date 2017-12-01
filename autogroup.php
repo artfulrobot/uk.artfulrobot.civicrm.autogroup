@@ -137,7 +137,7 @@ function autogroup_civicrm_post($op, $objectName, $objectId, &$objectRef) {
     }
 
     // Who is the current user?
-    $my_contact_id = CRM_Core_Session::singleton()->getLoggedInContactID();
+    $my_contact_id = CRM_AutoGroup::singleton()->getLoggedInContactID();
     if (!$my_contact_id) {
       // Hmmm. Not logged in? Do nothing.
       return;
