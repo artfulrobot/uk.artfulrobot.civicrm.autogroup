@@ -6,10 +6,10 @@
  * The ExtensionUtil class provides small stubs for accessing resources of this
  * extension.
  */
-class CRM_Autogroup_ExtensionUtil {
+class CRM_AutoGroup_ExtensionUtil {
   const SHORT_NAME = "autogroup";
   const LONG_NAME = "uk.artfulrobot.civicrm.autogroup";
-  const CLASS_PREFIX = "CRM_Autogroup";
+  const CLASS_PREFIX = "CRM_AutoGroup";
 
   /**
    * Translate a string using the extension's domain.
@@ -77,7 +77,7 @@ class CRM_Autogroup_ExtensionUtil {
 
 }
 
-use CRM_Autogroup_ExtensionUtil as E;
+use CRM_AutoGroup_ExtensionUtil as E;
 
 /**
  * (Delegated) Implements hook_civicrm_config().
@@ -205,14 +205,14 @@ function _autogroup_civix_civicrm_upgrade($op, CRM_Queue_Queue $queue = NULL) {
 }
 
 /**
- * @return CRM_Autogroup_Upgrader
+ * @return CRM_AutoGroup_Upgrader
  */
 function _autogroup_civix_upgrader() {
-  if (!file_exists(__DIR__ . '/CRM/Autogroup/Upgrader.php')) {
+  if (!file_exists(__DIR__ . '/CRM/AutoGroup/Upgrader.php')) {
     return NULL;
   }
   else {
-    return CRM_Autogroup_Upgrader_Base::instance();
+    return CRM_AutoGroup_Upgrader_Base::instance();
   }
 }
 

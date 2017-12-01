@@ -123,6 +123,36 @@ function autogroup_civicrm_alterSettingsFolders(&$metaDataFolders = NULL) {
   _autogroup_civix_civicrm_alterSettingsFolders($metaDataFolders);
 }
 
+/**
+ * Ensure newly created contacts are added to the same groups as the creator.
+ */
+function autogroup_civicrm_post($op, $objectName, $objectId, &$objectRef) {
+  if ($op == 'create' && $objectName == 'Individual') {
+
+    // Which groups do we consider for adding?
+    $groups = Civi::settings()->get('autogroup_groups_to_copy');
+    if (empty($groups)) {
+      // Not configured.
+      return;
+    }
+
+    // Who is the current user?
+    $my_contact_id = CRM_Core_Session::singleton()->getLoggedInContactID();
+    if (!$my_contact_id) {
+      // Hmmm. Not logged in? Do nothing.
+      return;
+    }
+
+    // Which of these groups is the current user in?
+    foreach ($groups as $group_id) {
+      $result = civicrm_api3('Contact', 'get', ['group' => $group_id, 'id' => $my_contact_id, 'return' => 'id']);
+      if ($result['count']) {
+        // Add the newly created contact into this group.
+        civicrm_api3('GroupContact', 'create', ['contact_id' => $objectId, 'group_id' => $group_id, 'status' => 'added']);
+      }
+    }
+  }
+}
 // --- Functions below this ship commented out. Uncomment as required. ---
 
 /**
