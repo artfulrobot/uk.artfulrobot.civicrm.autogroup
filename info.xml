@@ -12,9 +12,9 @@
     <email>forums@artfulrobot.uk</email>
   </maintainer>
   <urls>
-    <url desc="Main Extension Page">http://FIXME</url>
-    <url desc="Documentation">http://FIXME</url>
-    <url desc="Support">http://FIXME</url>
+    <url desc="Main Extension Page">https://github.com/artfulrobot/uk.artfulrobot.civicrm.autogroup/</url>
+    <url desc="Documentation">https://github.com/artfulrobot/uk.artfulrobot.civicrm.autogroup/</url>
+    <url desc="Support">https://github.com/artfulrobot/uk.artfulrobot.civicrm.autogroup/</url>
     <url desc="Licensing">http://www.gnu.org/licenses/gpl-3.0.html</url>
   </urls>
   <releaseDate>2017-11-30</releaseDate>
