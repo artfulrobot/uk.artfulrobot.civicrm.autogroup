@@ -148,7 +148,7 @@ function autogroup_civicrm_post($op, $objectName, $objectId, &$objectRef) {
       $result = civicrm_api3('Contact', 'get', ['group' => $group_id, 'id' => $my_contact_id, 'return' => 'id']);
       if ($result['count']) {
         // Add the newly created contact into this group.
-        civicrm_api3('GroupContact', 'create', ['contact_id' => $objectId, 'group_id' => $group_id, 'status' => 'added']);
+        civicrm_api3('GroupContact', 'create', ['contact_id' => $objectId, 'group_id' => $group_id, 'status' => 'Added']);
       }
     }
   }
