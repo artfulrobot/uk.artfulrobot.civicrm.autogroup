@@ -54,3 +54,8 @@ discuss any improvements. Please also note that a more general nuts-and-bolts
 solution to your problem may be found in using CiviRules instead.
 
 Enjoy :-)
+
+## Version 1.1
+
+This used to just work when adding Individuals, but now works for Households and
+Organisations (Issue #1)

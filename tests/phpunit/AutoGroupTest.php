@@ -32,6 +32,14 @@ class AutoGroupTest extends \PHPUnit_Framework_TestCase implements HeadlessInter
         'last_name' => 'Added',
         'contact_type' => 'Individual',
       ],
+      'new_org' => [
+        'display_name' => 'Caves and Stones Ltd.',
+        'contact_type' => 'Individual',
+      ],
+      'new_household' => [
+        'display_name' => 'The Rubble-Flintstones',
+        'contact_type' => 'Individual',
+      ],
     ],
     'groups' => [
       'addable1' => [
@@ -95,6 +103,52 @@ class AutoGroupTest extends \PHPUnit_Framework_TestCase implements HeadlessInter
 
     $result = civicrm_api3('Contact', 'create', $this->fixtures['contacts']['new_person']);
     $this->fixtures['contacts']['new_person']['contact_id'] = $result['id'];
+
+    foreach (['addable1', 'addable2'] as $_) {
+      $this->assertContactInGroup($result['id'], $this->fixtures['groups'][$_]['group_id']);
+    }
+    foreach (['notaddable'] as $_) {
+      $this->assertContactNotInGroup($result['id'], $this->fixtures['groups'][$_]['group_id']);
+    }
+  }
+
+  /**
+   * Test that the correct groups are copied.
+   */
+  public function testAddingOrganizationCopiesCorrectGroups() {
+
+    // Configure the extension.
+    $groups = Civi::settings()->set('autogroup_groups_to_copy', [
+      $this->fixtures['groups']['addable1']['group_id'],
+      $this->fixtures['groups']['addable2']['group_id'],
+    ]);
+
+
+    $result = civicrm_api3('Contact', 'create', $this->fixtures['contacts']['new_org']);
+    $this->fixtures['contacts']['new_org']['contact_id'] = $result['id'];
+
+    foreach (['addable1', 'addable2'] as $_) {
+      $this->assertContactInGroup($result['id'], $this->fixtures['groups'][$_]['group_id']);
+    }
+    foreach (['notaddable'] as $_) {
+      $this->assertContactNotInGroup($result['id'], $this->fixtures['groups'][$_]['group_id']);
+    }
+  }
+
+  /**
+   * Test that the correct groups are copied.
+   */
+  public function testAddingHouseholdCopiesCorrectGroups() {
+
+    // Configure the extension.
+    $groups = Civi::settings()->set('autogroup_groups_to_copy', [
+      $this->fixtures['groups']['addable1']['group_id'],
+      $this->fixtures['groups']['addable2']['group_id'],
+    ]);
+
+
+    $result = civicrm_api3('Contact', 'create', $this->fixtures['contacts']['new_household']);
+    $this->fixtures['contacts']['new_household']['contact_id'] = $result['id'];
 
     foreach (['addable1', 'addable2'] as $_) {
       $this->assertContactInGroup($result['id'], $this->fixtures['groups'][$_]['group_id']);

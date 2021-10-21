@@ -127,7 +127,7 @@ function autogroup_civicrm_alterSettingsFolders(&$metaDataFolders = NULL) {
  * Ensure newly created contacts are added to the same groups as the creator.
  */
 function autogroup_civicrm_post($op, $objectName, $objectId, &$objectRef) {
-  if ($op == 'create' && $objectName == 'Individual') {
+  if ($op === 'create' && in_array($objectName, ['Individual', 'Organization', 'Household'])) {
 
     // Which groups do we consider for adding?
     $groups = Civi::settings()->get('autogroup_groups_to_copy');
@@ -148,7 +148,7 @@ function autogroup_civicrm_post($op, $objectName, $objectId, &$objectRef) {
       $result = civicrm_api3('Contact', 'get', ['group' => $group_id, 'id' => $my_contact_id, 'return' => 'id']);
       if ($result['count']) {
         // Add the newly created contact into this group.
-        civicrm_api3('GroupContact', 'create', ['contact_id' => $objectId, 'group_id' => $group_id, 'status' => 'added']);
+        civicrm_api3('GroupContact', 'create', ['contact_id' => $objectId, 'group_id' => $group_id, 'status' => 'Added']);
       }
     }
   }
