@@ -55,7 +55,14 @@ solution to your problem may be found in using CiviRules instead.
 
 Enjoy :-)
 
-## Version 1.1
+
+## Changes
+
+### Version 1.1.2
+
+Fix issue #3 whereby only top 25 groups were shown.
+
+### Version 1.1
 
 This used to just work when adding Individuals, but now works for Households and
 Organisations (Issue #1)
