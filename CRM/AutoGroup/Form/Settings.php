@@ -31,7 +31,11 @@ class CRM_AutoGroup_Form_Settings extends CRM_Admin_Form_Setting {
     $e->setSize(12);
 
     // Get list of groups (we exclude mailing or access groups).
-    $result = civicrm_api3('group', 'get', ['return' => 'title', 'group_type' => ['IS NULL' => 1], 'options' => ['sort' => 'title']]);
+    $result = civicrm_api3('group', 'get', [
+      'return' => 'title',
+      'group_type' => ['IS NULL' => 1],
+      'options' => ['sort' => 'title', 'limit' => 0]
+    ]);
     foreach ($result['values'] as $_) {
       $e->addOption($_['title'], $_['id']);
     }
