@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<menu>
-  <item>
-    <path>civicrm/admin/autogroup</path>
-    <page_callback>CRM_AutoGroup_Form_Settings</page_callback>
-    <title>Settings</title>
-    <access_arguments>administer CiviCRM</access_arguments>
-  </item>
-</menu>
